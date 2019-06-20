@@ -231,7 +231,8 @@ plugin.build = function(data, callback) {
 
 					isMain: data.isMain,
 					isTopicOrMain: !!req.query.cid || data.isMain,
-					minimumTagLength: meta.config.minimumTagLength || 3,
+					// minimumTagLength: meta.config.minimumTagLength || 1,
+					minimumTagLength: 1,
 					maximumTagLength: meta.config.maximumTagLength || 15,
 					tagWhitelist: data.tagWhitelist,
 					isTopic: !!req.query.cid,
