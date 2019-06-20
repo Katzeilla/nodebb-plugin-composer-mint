@@ -1,15 +1,5 @@
-.composer-discard {
-	background-color: #fff;
-	border: 0px;
-	}
-
-.composer-submit {
-	background-color: #4CAF50;
-	border: 0px;
-}
-
 .define-if-not-set() {
-	@btn-primary-bg: darken(#428bca, 6.5%);
+	@btn-primary-bg: #4CAF50;
 	@btn-primary-color: #fff;
 	@gray-light: lighten(#000, 46.7%);
 	@padding-large-vertical: 10px;
@@ -17,6 +7,33 @@
 }
 
 .define-if-not-set();
+
+.composer-minimize {
+	border: 0px;
+	background-color: #4CAF50;
+                        &:hover {
+					background-color: darken(#4CAF50, 10%);
+				}
+	}
+
+.composer-discard {
+	border: 0px;
+                        &:hover {
+					background-color: darken(#fff, 10%);
+				}
+	}
+
+.composer-submit {
+	background-color: #4CAF50;
+	border: 0px;
+                        &:hover {
+					background-color: darken(#4CAF50, 10%);
+				}
+
+
+}
+
+
 
 .composer {
 	.no-select;
@@ -42,7 +59,7 @@
 
 	.mobile-navbar {
 		position: static;
-		background: @btn-primary-bg;
+		background: #4CAF50;
 		color: @btn-primary-color;
 		min-height: 40px;
 		margin: 0;
@@ -68,6 +85,14 @@
 			padding: 9px 5px;
 			margin: 0;
 		}
+                .composer-discard {
+	                border: 0px;
+			background-color: #4CAF50;
+                        &:hover {
+					background-color: darken(#4CAF50, 10%);
+				}
+	        }
+
 	}
 
 	.title-container {
@@ -276,7 +301,7 @@
 			color: #333;
 
 			&.active {
-				background-color: @btn-primary-bg;
+				background-color: #4CAF50;
 				color: @btn-primary-color;
 			}
 		}
