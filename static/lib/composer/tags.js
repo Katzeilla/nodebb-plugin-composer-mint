@@ -22,9 +22,11 @@ define('composer/tags', function() {
 		tagEl.on('beforeItemAdd', function(event) {
 			var cleanTag = utils.cleanUpTag(event.item, config.maximumTagLength);
 			var different = cleanTag !== event.item;
-			event.cancel = different || event.item.length < config.minimumTagLength || event.item.length > config.maximumTagLength;
-			if (event.item.length < config.minimumTagLength) {
-				return app.alertError('[[error:tag-too-short, ' + config.minimumTagLength + ']]');
+			// event.cancel = different || event.item.length < config.minimumTagLength || event.item.length > config.maximumTagLength;
+			event.cancel = different || event.item.length < 1 || event.item.length > config.maximumTagLength;
+			// if (event.item.length < config.minimumTagLength) {
+			if (event.item.length < 1) {
+				return app.alertError('[[error:tag-too-short, ' + 1 + ']]');
 			} else if (event.item.length > config.maximumTagLength) {
 				return app.alertError('[[error:tag-too-long, ' + config.maximumTagLength + ']]');
 			}
