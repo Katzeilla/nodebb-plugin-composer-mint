@@ -3,7 +3,7 @@
 
 /* globals define */
 
-define('composer/resize', [], function() {
+define('composer/resize', ['taskbar'], function(taskbar) {
 	var resize = {};
 	var oldRatio = 0;
 	var minimumRatio = 0.3;
@@ -29,6 +29,8 @@ define('composer/resize', [], function() {
 	function getBounds() {
 		var headerRect = header.getBoundingClientRect();
 
+		var headerBottom = Math.max(headerRect.bottom, 0);
+
 		var rect = {
 			top: 0,
 			left: 0,
@@ -39,8 +41,8 @@ define('composer/resize', [], function() {
 		rect.width = rect.right;
 		rect.height = rect.bottom;
 
-		rect.boundedTop = headerRect.bottom;
-		rect.boundedHeight = rect.bottom - headerRect.bottom;
+		rect.boundedTop = headerBottom;
+		rect.boundedHeight = rect.bottom - headerBottom;
 
 		return rect;
 	}
@@ -66,6 +68,8 @@ define('composer/resize', [], function() {
 
 		postContainer.ratio = ratio;
 		elem.style.visibility = 'visible';
+
+		taskbar.updateActive(postContainer.attr('data-uuid'));
 	}
 
 	var resizeIt = doResize;

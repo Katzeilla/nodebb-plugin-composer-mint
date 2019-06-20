@@ -19,6 +19,9 @@ $(document).ready(function() {
 		require(['composer', 'composer/drafts'], function (composer, drafts) {
 			// Deconstruct each save_id and open up composer
 			available.forEach(function (save_id) {
+				if (!save_id) {
+					return;
+				}
 				var saveObj = save_id.split(':');
 				var uid = saveObj[1];
 				var type = saveObj[2];
@@ -55,21 +58,22 @@ $(document).ready(function() {
 		});
 	}
 
-	require(['composer/drafts'], function (drafts) {
-		$(window).on('unload', function (e) {
-			// Update visibility on all open composers
-			try {
-				var open = localStorage.getItem('drafts:open');
-				open = JSON.parse(open) || [];
-			} catch (e) {
-				console.warn('[composer/drafts] Could not read list of open/available drafts');
-				open = [];
-			}
-
-			open.forEach(function (save_id) {
-				drafts.updateVisibility('open', save_id);
+	$(window).on('unload', function (e) {
+		// Update visibility on all open composers
+		try {
+			var open = localStorage.getItem('drafts:open');
+			open = JSON.parse(open) || [];
+		} catch (e) {
+			console.warn('[composer/drafts] Could not read list of open/available drafts');
+			open = [];
+		}
+		if (open.length) {
+			require(['composer/drafts'], function (drafts) {
+				open.forEach(function (save_id) {
+					drafts.updateVisibility('open', save_id);
+				});
 			});
-		});
+		}
 	});
 
 	$(window).on('action:composer.topic.new', function(ev, data) {

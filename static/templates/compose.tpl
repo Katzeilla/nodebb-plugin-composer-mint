@@ -20,26 +20,20 @@
 			<div class="col-sm-3 col-md-12">
 				<input class="handle form-control" type="text" tabindex="1" placeholder="[[topic:composer.handle_placeholder]]" value="{handle}" />
 			</div>
-			<div class="<!-- IF isTopic -->col-lg-9<!-- ELSE -->col-lg-12<!-- ENDIF isTopic --> col-md-12">
-				<!-- IF isTopicOrMain -->
-				<input name="title" form="compose-form" class="title form-control" type="text" tabindex="1" placeholder="[[topic:composer.title_placeholder]]" value="{topicTitle}"/>
-				<!-- ELSE -->
-				<span class="title">[[topic:composer.replying_to, "{topicTitle}"]]</span>
-				<!-- ENDIF isTopicOrMain -->
-			</div>
-			<!-- ELSE -->
-			<div class="<!-- IF isTopic -->col-lg-9<!-- ELSE -->col-lg-12<!-- ENDIF isTopic --> col-md-12">
-				<!-- IF isTopicOrMain -->
-				<input name="title" form="compose-form" class="title form-control" type="text" tabindex="1" placeholder="[[topic:composer.title_placeholder]]" value="{topicTitle}"/>
-				<!-- ELSE -->
-				<span class="title">[[topic:composer.replying_to, "{topicTitle}"]]</span>
-				<!-- ENDIF isTopicOrMain -->
-			</div>
 			<!-- ENDIF showHandleInput -->
-			<!-- IF isTopic -->
-			<div class="category-list-container col-lg-3 col-md-12">
-
+			<div class="<!-- IF isTopic -->col-lg-9<!-- ELSE -->col-lg-12<!-- ENDIF isTopic --> col-md-12">
+				<!-- IF isTopicOrMain -->
+				<input name="title" form="compose-form" class="title form-control" type="text" tabindex="1" placeholder="[[topic:composer.title_placeholder]]" value="{topicTitle}"/>
+				<!-- ELSE -->
+				<span class="title">[[topic:composer.replying_to, "{topicTitle}"]]</span>
+				<!-- ENDIF isTopicOrMain -->
+				<ul class="dropdown-menu quick-search-results hidden">
+					<!-- IMPORT partials/quick-search-results.tpl -->
+				</ul>
 			</div>
+
+			<!-- IF isTopic -->
+			<div class="category-list-container col-lg-3 col-md-3"></div>
 			<!-- ENDIF isTopic -->
 		</div>
 
@@ -125,5 +119,27 @@
 				<div class="preview well"></div>
 			</div>
 		</div>
+
+		<!-- IF isTopicOrMain -->
+		<div class="tag-row">
+			<div class="tags-container">
+				<div class="btn-group dropup <!-- IF !tagWhitelist.length -->hidden<!-- ENDIF !tagWhitelist.length -->" component="composer/tag/dropdown">
+					<button class="btn btn-default dropdown-toggle" data-toggle="dropdown" type="button">
+						<span class="visible-sm-inline visible-md-inline visible-lg-inline"><i class="fa fa-tags"></i></span>
+						<span class="caret"></span>
+					</button>
+
+					<ul class="dropdown-menu">
+						<!-- BEGIN tagWhitelist -->
+						<li data-tag="@value"><a href="#">@value</a></li>
+						<!-- END tagWhitelist -->
+					</ul>
+				</div>
+				<input class="tags" type="text" class="form-control" placeholder="[[tags:enter_tags_here, {minimumTagLength}, {maximumTagLength}]]" tabindex="5"/>
+			</div>
+		</div>
+		<!-- ENDIF isTopicOrMain -->
+
+
 	</div>
 </div>

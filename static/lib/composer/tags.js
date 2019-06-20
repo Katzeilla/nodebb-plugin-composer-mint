@@ -35,7 +35,7 @@ define('composer/tags', function() {
 
 		tagEl.on('itemAdded', function(event) {
 			var cid = postData.hasOwnProperty('cid') ? postData.cid : ajaxify.data.cid;
-			socket.emit('topics.isTagAllowed', { tag: event.item, cid: cid }, function(err, allowed) {
+			socket.emit('topics.isTagAllowed', { tag: event.item, cid: cid || 0}, function(err, allowed) {
 				if (err) {
 					return app.alertError(err.message);
 				}
@@ -93,17 +93,19 @@ define('composer/tags', function() {
 	};
 
 	tags.onChangeCategory = function (postContainer, postData, cid) {
-		$.get('/api/category/' + cid, function (data) {
+		$.get(config.relative_path + '/api/category/' + cid, function (data) {
 			var tagDropdown = postContainer.find('[component="composer/tag/dropdown"]');
 			if (!tagDropdown.length) {
 				return;
 			}
 
 			toggleTagInput(postContainer, postData, data);
-			tagDropdown.toggleClass('hidden', !data.tagWhitelist.length);
-			app.parseAndTranslate('composer', 'tagWhitelist', { tagWhitelist: data.tagWhitelist }, function (html) {
-				tagDropdown.find('.dropdown-menu').html(html);
-			});
+			tagDropdown.toggleClass('hidden', !data.tagWhitelist || !data.tagWhitelist.length);
+			if (data.tagWhitelist) {
+				app.parseAndTranslate('composer', 'tagWhitelist', { tagWhitelist: data.tagWhitelist }, function (html) {
+					tagDropdown.find('.dropdown-menu').html(html);
+				});
+			}
 		});
 	};
 
@@ -127,9 +129,9 @@ define('composer/tags', function() {
 			input.attr('placeholder', postContainer.find('input.tags').attr('placeholder'));
 		}
 
-		postContainer.find('.tags-container').toggleClass('hidden', (data.privileges && !data.privileges['topics:tag']) || (config.maximumTagsPerTopic === 0 && !postData.tags.length));
+		postContainer.find('.tags-container').toggleClass('hidden', (data.privileges && data.privileges.hasOwnProperty('topics:tag') && !data.privileges['topics:tag']) || (config.maximumTagsPerTopic === 0 && !postData.tags.length));
 
-		if (data.privileges && !data.privileges['topics:tag']) {
+		if (data.privileges && data.privileges.hasOwnProperty('topics:tag') && !data.privileges['topics:tag']) {
 			tagEl.tagsinput('removeAll');
 		}
 
@@ -159,7 +161,7 @@ define('composer/tags', function() {
 	}
 
 	tags.getTags = function(post_uuid) {
-		return $('#cmp-uuid-' + post_uuid + ' .tags').tagsinput('items');
+		return $('.composer[data-uuid="' + post_uuid + '"]' + ' .tags').tagsinput('items');
 	};
 
 	return tags;
