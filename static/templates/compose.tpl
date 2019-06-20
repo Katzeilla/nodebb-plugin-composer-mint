@@ -40,16 +40,6 @@
 		<div class="category-tag-row">
 			<div class="btn-toolbar formatting-bar">
 				<ul class="formatting-group">
-					<!-- BEGIN formatting -->
-						<!-- IF formatting.spacer -->
-						<li class="spacer"></li>
-						<!-- ELSE -->
-						<!-- IF !formatting.mobile -->
-						<li tabindex="-1" data-format="{formatting.name}"><i class="{formatting.className}"></i></li>
-						<!-- ENDIF !formatting.mobile -->
-						<!-- ENDIF formatting.spacer -->
-					<!-- END formatting -->
-
 					<!--[if gte IE 9]><!-->
 						<!-- IF privileges.upload:post:image -->
 						<li class="img-upload-btn hide" data-format="picture" tabindex="-1">
@@ -62,6 +52,15 @@
 						</li>
 						<!-- ENDIF privileges.upload:post:file -->
 					<!--<![endif]-->
+					<!-- BEGIN formatting -->
+						<!-- IF formatting.spacer -->
+						<li class="spacer"></li>
+						<!-- ELSE -->
+						<!-- IF !formatting.mobile -->
+						<li tabindex="-1" data-format="{formatting.name}"><i class="{formatting.className}"></i></li>
+						<!-- ENDIF !formatting.mobile -->
+						<!-- ENDIF formatting.spacer -->
+					<!-- END formatting -->
 
 					<!-- IF allowTopicsThumbnail -->
 					<li tabindex="-1">
