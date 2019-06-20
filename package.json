@@ -1,25 +1,27 @@
 {
-  "name": "nodebb-plugin-composer-default",
+  "name": "nodebb-plugin-composer-mint",
   "version": "6.2.9",
-  "description": "Default composer for NodeBB",
+  "description": "Default composer for NodeBB with a brighter color",
   "main": "library.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/NodeBB/nodebb-plugin-composer-default"
+    "url": "https://github.com/katzeilla/nodebb-plugin-composer-mint"
   },
   "keywords": [
     "nodebb",
     "plugin",
     "composer",
-    "markdown"
+    "markdown",
+    "miaowo",
+    "mint"
   ],
   "author": {
-    "name": "NodeBB Team",
-    "email": "sales@nodebb.org"
+    "name": "Katzeilla",
+    "email": "katzeilla@miaowo.org"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/NodeBB/nodebb-plugin-composer-default/issues"
+    "url": "https://github.com/katzeilla/nodebb-plugin-composer-mint/issues"
   },
   "readmeFilename": "README.md",
   "nbbpm": {
